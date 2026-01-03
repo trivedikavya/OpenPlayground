@@ -119,30 +119,29 @@ projects/your-project-name/
 2. **Update the main website**
    - Open `projects.json` in the root directory.
    - Add a new object to the array with your project details using this template:
-   ```copy
+
+   ```js
    {
-  "title": "Your Project Name",
+      "title": "Your Project Name",
   "category": "utility",
   "description": "Brief description of your project.",
   "tech": ["HTML", "CSS", "JS"],
   "link": "./projects/your-project-name/index.html",
   "icon": "ri-your-icon-name",
   "coverClass": "your-project-cover"
-}
+   }  
    ```
+
 **Note:** _Valid categories include `utility`, `game`, `puzzle`, `productivity`, etc._
 
 3. **Add CSS for your project card**
 
    - If you used a `coverClass` (e.g., `your-project-cover`) in step 2, add the styling in `css/style.css` :
-
    ```css
-
    .your-project-cover {
     background: linear-gradient(135deg, #color1 0%, #color2 100%);
     color: white; /* Optional: adjust text color if needed */
-}
-
+   }
    ```
    - Alternatively, you can use `"coverStyle"` in `projects.json` for inline styles instead of a class.
    
