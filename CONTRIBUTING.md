@@ -120,7 +120,7 @@ projects/your-project-name/
    - Open `projects.json` in the root directory.
    - Add a new object to the array with your project details using this template:
 
-   ```js
+   ```bash
    {
       "title": "Your Project Name",
   "category": "utility",
@@ -137,7 +137,7 @@ projects/your-project-name/
 3. **Add CSS for your project card**
 
    - If you used a `coverClass` (e.g., `your-project-cover`) in step 2, add the styling in `css/style.css` :
-   ```css
+   ```bash
    .your-project-cover {
     background: linear-gradient(135deg, #color1 0%, #color2 100%);
     color: white; /* Optional: adjust text color if needed */
