@@ -16,7 +16,7 @@
   </head>
 
   <body>
-    <div class="app-container">
+    <div class="app-container" id="app-container">
       <!-- Theme Toggle -->
       <button class="theme-toggle" id="theme-toggle" title="Toggle Theme">
         <i class="fas fa-moon"></i>
@@ -268,112 +268,165 @@
               <span>Tap + to add an alarm</span>
             </div>
           </div>
-
-          <!-- Add/Edit Alarm Modal -->
-          <div class="alarm-modal hidden" id="alarm-modal">
-            <div class="alarm-modal-content">
-              <h4 id="alarm-modal-title">Add Alarm</h4>
-              <div class="alarm-time-picker">
-                <div class="alarm-time-input">
-                  <input
-                    type="number"
-                    id="alarm-hour"
-                    min="1"
-                    max="12"
-                    value="7"
-                  />
-                  <span>:</span>
-                  <input
-                    type="number"
-                    id="alarm-minute"
-                    min="0"
-                    max="59"
-                    value="0"
-                  />
-                  <select id="alarm-period">
-                    <option value="AM">AM</option>
-                    <option value="PM">PM</option>
-                  </select>
-                </div>
-              </div>
-              <div class="alarm-days">
-                <button class="day-btn" data-day="0">S</button>
-                <button class="day-btn" data-day="1">M</button>
-                <button class="day-btn" data-day="2">T</button>
-                <button class="day-btn" data-day="3">W</button>
-                <button class="day-btn" data-day="4">T</button>
-                <button class="day-btn" data-day="5">F</button>
-                <button class="day-btn" data-day="6">S</button>
-              </div>
-              <div class="alarm-label-input">
-                <input
-                  type="text"
-                  id="alarm-label"
-                  placeholder="Alarm label (optional)"
-                />
-              </div>
-              <div class="alarm-sound-select">
-                <label>Sound:</label>
-                <select id="alarm-sound">
-                  <option value="classic">Classic</option>
-                  <option value="digital">Digital</option>
-                  <option value="gentle">Gentle</option>
-                  <option value="urgent">Urgent</option>
-                </select>
-              </div>
-              <div class="alarm-modal-actions">
-                <button class="modal-btn cancel" id="alarm-cancel">
-                  Cancel
-                </button>
-                <button class="modal-btn save" id="alarm-save">Save</button>
-              </div>
-            </div>
-          </div>
         </section>
       </div>
 
-      <!-- Alarm Alert Modal -->
-      <div class="alarm-alert hidden" id="alarm-alert">
-        <div class="alarm-alert-content">
-          <div class="alarm-alert-icon">
-            <i class="fas fa-bell"></i>
-          </div>
-          <h2 id="alarm-alert-time">7:00 AM</h2>
-          <p id="alarm-alert-label">Wake Up!</p>
-          <div class="alarm-alert-actions">
-            <button class="alert-btn snooze" id="alarm-snooze">
-              <i class="fas fa-redo"></i> Snooze (5 min)
-            </button>
-            <button class="alert-btn dismiss" id="alarm-dismiss">
-              <i class="fas fa-times"></i> Dismiss
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Add City Modal -->
-      <div class="city-modal hidden" id="city-modal">
-        <div class="city-modal-content">
-          <h4>Add World Clock</h4>
-          <div class="city-search">
-            <i class="fas fa-search"></i>
-            <input type="text" id="city-search" placeholder="Search city..." />
-          </div>
-          <div class="city-list" id="city-list">
-            <!-- Cities will be populated here -->
-          </div>
-          <button class="modal-btn cancel" id="city-cancel">Cancel</button>
-        </div>
-      </div>
-
       <!-- Back Link -->
-      <a href="../../index.html" class="back-link">
+      <a href="../../index.html" class="back-link" id="back-link">
         <i class="fas fa-arrow-left"></i> Back to Projects
       </a>
     </div>
 
+    <!-- Add/Edit Alarm Modal -->
+    <div class="modal-overlay hidden" id="alarm-modal">
+      <div class="modal-content alarm-modal-content">
+        <div class="modal-header">
+          <h4 id="alarm-modal-title">Add Alarm</h4>
+          <button class="modal-close" id="alarm-modal-close">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+
+        <div class="alarm-time-picker">
+          <div class="alarm-time-input">
+            <div class="time-input-wrapper">
+              <button
+                class="time-adjust-btn"
+                data-target="alarm-hour"
+                data-action="increase"
+              >
+                <i class="fas fa-chevron-up"></i>
+              </button>
+              <input type="number" id="alarm-hour" min="1" max="12" value="7" />
+              <button
+                class="time-adjust-btn"
+                data-target="alarm-hour"
+                data-action="decrease"
+              >
+                <i class="fas fa-chevron-down"></i>
+              </button>
+              <span class="input-label">Hour</span>
+            </div>
+
+            <span class="time-colon">:</span>
+
+            <div class="time-input-wrapper">
+              <button
+                class="time-adjust-btn"
+                data-target="alarm-minute"
+                data-action="increase"
+              >
+                <i class="fas fa-chevron-up"></i>
+              </button>
+              <input
+                type="number"
+                id="alarm-minute"
+                min="0"
+                max="59"
+                value="0"
+              />
+              <button
+                class="time-adjust-btn"
+                data-target="alarm-minute"
+                data-action="decrease"
+              >
+                <i class="fas fa-chevron-down"></i>
+              </button>
+              <span class="input-label">Minute</span>
+            </div>
+
+            <div class="period-selector">
+              <button class="period-btn active" data-period="AM">AM</button>
+              <button class="period-btn" data-period="PM">PM</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="alarm-repeat-section">
+          <label>Repeat</label>
+          <div class="alarm-days">
+            <button class="day-btn" data-day="0">S</button>
+            <button class="day-btn" data-day="1">M</button>
+            <button class="day-btn" data-day="2">T</button>
+            <button class="day-btn" data-day="3">W</button>
+            <button class="day-btn" data-day="4">T</button>
+            <button class="day-btn" data-day="5">F</button>
+            <button class="day-btn" data-day="6">S</button>
+          </div>
+        </div>
+
+        <div class="alarm-label-section">
+          <label for="alarm-label">Label</label>
+          <input
+            type="text"
+            id="alarm-label"
+            placeholder="Alarm name (optional)"
+          />
+        </div>
+
+        <div class="alarm-sound-section">
+          <label for="alarm-sound">Sound</label>
+          <select id="alarm-sound">
+            <option value="classic">Classic</option>
+            <option value="digital">Digital</option>
+            <option value="gentle">Gentle</option>
+            <option value="urgent">Urgent</option>
+          </select>
+        </div>
+
+        <div class="modal-actions">
+          <button class="modal-btn cancel" id="alarm-cancel">Cancel</button>
+          <button class="modal-btn save" id="alarm-save">Save Alarm</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Alarm Alert Modal -->
+    <div class="modal-overlay alarm-alert-overlay hidden" id="alarm-alert">
+      <div class="alarm-alert-content">
+        <div class="alarm-alert-icon">
+          <i class="fas fa-bell"></i>
+        </div>
+        <h2 id="alarm-alert-time">7:00 AM</h2>
+        <p id="alarm-alert-label">Wake Up!</p>
+        <div class="alarm-alert-actions">
+          <button class="alert-btn snooze" id="alarm-snooze">
+            <i class="fas fa-redo"></i> Snooze (5 min)
+          </button>
+          <button class="alert-btn dismiss" id="alarm-dismiss">
+            <i class="fas fa-times"></i> Dismiss
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add City Modal -->
+    <div class="modal-overlay hidden" id="city-modal">
+      <div class="modal-content city-modal-content">
+        <div class="modal-header">
+          <h4>Add World Clock</h4>
+          <button class="modal-close" id="city-modal-close">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="city-search">
+          <i class="fas fa-search"></i>
+          <input type="text" id="city-search" placeholder="Search city..." />
+        </div>
+        <div class="city-list" id="city-list">
+          <!-- Cities will be populated here -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast hidden" id="toast">
+      <i class="fas fa-check-circle"></i>
+      <span id="toast-message">Success!</span>
+    </div>
+
     <!-- Audio for Timer/Alarm -->
-    <audio id="alarm-audio" preload="auto">
+    <audio id="alarm-audio" preload="auto" loop>
       <source
         src="https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3"
         type="audio/mpeg"

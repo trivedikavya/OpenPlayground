@@ -458,6 +458,11 @@ html[data-theme="dark"] #toggle-mode-btn i {
     color: #ea580c;
 }
 
+.code-editor-cover {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #ffffff;
+}
+
 .password-gen-cover {
     background: linear-gradient(135deg, #ecfdf5 0%, #a7f3d0 100%);
     color: #059669;
@@ -849,23 +854,6 @@ html[data-theme="dark"] #toggle-mode-btn i {
 }
 
 
-#project-search {
-    width: 320px;
-    max-width: 90%;
-    padding: 10px 14px;
-    font-family: 'Poppins', sans-serif;
-    font-size: 14px;
-    border-radius: 8px;
-    border: 1px solid #ddd;
-    outline: none;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-#project-search:focus {
-    border-color: #3b82f6;
-    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.15);
-}
-
 /* ============================= */
 /*           NAVBAR              */
 /* ============================= */
@@ -1090,6 +1078,7 @@ html[data-theme="dark"] #toggle-mode-btn i {
     .footer p {
         font-size: 0.85rem;
     }
+}
 
   }
 
