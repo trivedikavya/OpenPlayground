@@ -990,32 +990,7 @@
     "icon": "ri-keyboard-line",
     "coverStyle": "background: #1e293b; color: #22d3ee;"
   },
-  {
-    "title": "Instagram Bio Generator",
-    "category": "utility",
-    "description": "Generate random Instagram bio suggestions with emojis and vibes.",
-    "tech": [
-      "HTML",
-      "CSS",
-      "JS"
-    ],
-    "link": "./projects/Insta_bio_suggesstion/index.html",
-    "icon": "ri-user-line",
-    "coverStyle": "background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%); color: #7c2d12;"
-  },
-  {
-    "title": "Hangman Game",
-    "category": "game",
-    "description": "Guess the hidden word one letter at a time before running out of attempts.",
-    "tech": [
-      "HTML",
-      "CSS",
-      "JS"
-    ],
-    "link": "./projects/hangman-game/index.html",
-    "icon": "ri-keyboard-line",
-    "coverClass": "hangman-cover"
-  },
+
   {
     "title": "Particle Text",
     "category": "game",
@@ -1043,19 +1018,6 @@
     "link": "./projects/simple-drawing-canvas/index.html",
     "icon": "ri-brush-line",
     "coverClass": "drawing-canvas-cover"
-  },
-  {
-    "title": "Visual Rhythm Game",
-    "category": "game",
-    "description": "Tap in sync with animated visual beats in a silent, arcade-style rhythm game.",
-    "tech": [
-      "HTML",
-      "CSS",
-      "JS"
-    ],
-    "link": "./projects/Visual_Rhythm_Game/index.html",
-    "icon": "ri-pulse-line",
-    "coverStyle": "background: linear-gradient(135deg, #020617 0%, #4f46e5 100%); color:#e0e7ff;"
   },
   {
     "title": "Visual Rhythm Game",
