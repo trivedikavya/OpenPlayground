@@ -61,6 +61,10 @@ function updateThemeIcon(theme, iconElement) {
 // Fetch and Initialize Projects
 async function fetchProjects() {
     try {
+
+        const res = await fetch("./projects.json");
+        allProjectsData = await res.json();
+
         const response = await fetch("./projects.json");
         const data = await response.json();
         allProjectsData = data;
@@ -256,13 +260,14 @@ function renderProjects() {
                 <i class="${bookmarkIcon}"></i>
             </button>
             <div ${coverAttr}><i class="${project.icon}"></i></div>
+
             <div class="card-content">
                 <div class="card-header-flex">
                     <h3 class="card-heading">${project.title}</h3>
                     <span class="category-tag">${capitalize(project.category)}</span>
                 </div>
                 <p class="card-description">${project.description}</p>
-                <div class="card-tech">${techStackHtml}</div>
+                <div class="card-tech">${project.tech.map(t=>`<span>${t}</span>`).join('')}</div>
             </div>
         `;
 
@@ -292,13 +297,8 @@ function renderProjects() {
         // Animation
         card.style.opacity = "0";
         card.style.transform = "translateY(20px)";
-        projectsContainer.appendChild(card);
 
-        setTimeout(() => {
-            card.style.transition = "opacity 0.4s ease, transform 0.4s ease";
-            card.style.opacity = "1";
-            card.style.transform = "translateY(0)";
-        }, index * 50);
+        projectsContainer.appendChild(card);
     });
 
     renderPagination(totalPages);
@@ -355,10 +355,12 @@ function renderPagination(totalPages) {
     const paginationContainer = document.getElementById("pagination-controls");
     if (!paginationContainer) return;
 
+// Pagination
+function renderPagination(totalPages){
     paginationContainer.innerHTML = "";
-    if (totalPages <= 1) return;
+    if(totalPages <= 1) return;
 
-    const createBtn = (label, disabled, onClick, isActive = false) => {
+    for(let i=1;i<=totalPages;i++){
         const btn = document.createElement("button");
         btn.className = `pagination-btn${isActive ? " active" : ""}`;
         btn.innerHTML = label;
@@ -431,12 +433,8 @@ function renderPagination(totalPages) {
     );
 }
 
-function scrollToProjects() {
-    const projectsSection = document.getElementById("projects");
-    if (projectsSection) {
-        projectsSection.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-}
+
+function capitalize(str){ return str.charAt(0).toUpperCase() + str.slice(1); }
 
 // ===============================
 // Contributors Logic
