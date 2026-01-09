@@ -103,7 +103,6 @@
     "icon": "ri-timer-flash-line",
     "coverStyle": "background: #4f46e5; color: white;"
   },
-
   {
     "title": "Personal Diary",
     "category": "utility",
@@ -1061,19 +1060,107 @@
   {
     "title": "Password Strength",
     "category": "utility",
-    "description": "Check how strong your password is.",
-    "tech": ["HTML", "CSS", "JS"],
-    "link": "./projects/password-strength-checker/index.html",
-    "icon": "ri-shield-check-line",
-    "coverStyle": "background: #0d9488; color: white;"
+    "description": "Set and manage medicine reminders with notifications.",
+    "tech": [
+      "HTML",
+      "CSS",
+      "JS"
+    ],
+    "link": "./projects/Medicine reminder/index.html",
+    "icon": "ri-file-copy-2-line",
+    "coverStyle": "background:#7a1050; color:white;"
+  },
+  {
+    "title": "Memory Challenge (ABC)",
+    "category": "game",
+    "description": "Test your memory by matching cards within limited moves and time.",
+    "tech": [
+      "HTML",
+      "CSS",
+      "JavaScript"
+    ],
+    "link": "./projects/memory-flip-game/index.html",
+    "icon": "ri-brain-line",
+    "coverStyle": "background:#8b5cf6; color:white;"
+  },
+  {
+    "title": "Drawing Canvas",
+    "category": "game",
+    "description": "A simple interactive canvas that lets users draw freely with adjustable brush size and color.",
+    "tech": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "Canvas"
+    ],
+    "link": "./projects/simple-drawing-canvas/index.html",
+    "icon": "ri-brush-line",
+    "coverClass": "drawing-canvas-cover"
+  },
+  {
+    "title": "Online Food Delivery App",
+    "category": "utility",
+    "description": "Responsive food ordering UI with cart functionality",
+    "tech": [
+      "HTML",
+      "CSS",
+      "JS"
+    ],
+    "link": "./projects/One_Button_Boss_Fight/index.html",
+    "icon": "ri-sword-line",
+    "coverStyle": "background: linear-gradient(135deg, #7f1d1d 0%, #1f2937 100%); color:#fef2f2;"
+  },
+  {
+    "title": "Neon Snake Arena",
+    "category": "game",
+    "description": "A neon-styled Snake game with smooth motion, power-ups, and arena challenges.",
+    "tech": [
+      "HTML",
+      "CSS",
+      "JS"
+    ],
+    "link": "./projects/Neon_Snake_Arena/index.html",
+    "icon": "ri-gamepad-line",
+    "coverStyle": "background: linear-gradient(135deg, #020617 0%, #22d3ee 100%); color:#ecfeff;"
   },
   {
     "title": "Procrastination Cost",
     "category": "utility",
-    "description": "Calculate the cost of wasted time.",
-    "tech": ["HTML", "CSS", "JS"],
-    "link": "./projects/procrastinationcost/index.html",
-    "icon": "ri-timer-2-line",
-    "coverStyle": "background: #dc2626; color: white;"
+    "description": "Interactive visualizer for pathfinding algorithms like Dijkstra, A*, BFS, and DFS.",
+    "tech": [
+      "HTML",
+      "CSS",
+      "JS"
+    ],
+    "link": "./projects/Pathfinding_Visualizer/index.html",
+    "icon": "ri-direction-line",
+    "coverStyle": "background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); color: #6366f1;"
+  },
+  {
+    "title": "Open Source Readiness Checker",
+    "category": "utility",
+    "description": "Assess your readiness for contributing to open source projects.",
+    "tech": [
+      "HTML",
+      "CSS",
+      "JS"
+    ],
+    "link": "./projects/OS-ReadinessChecker/index.html",
+    "icon": "ri-direction-line",
+    "coverStyle": "background: linear-gradient(135deg, #020617 0%, #22d3ee 100%); color:#ecfeff;"
+  },
+  {
+    "title": "SQL Query Visualizer",
+    "category": "utility",
+    "description": "Interactive visualizer for SQL joins using Set Theory diagrams.",
+    "tech": [
+      "HTML",
+      "CSS",
+      "JS",
+      "Canvas"
+    ],
+    "link": "./projects/SQL_Query_Visualizer/index.html",
+    "icon": "ri-database-2-line",
+    "coverStyle": "background: linear-gradient(135deg, #1e293b 0%, #334155 100%); color: #3b82f6;"
   }
 ]

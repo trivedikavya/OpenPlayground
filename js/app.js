@@ -1,5 +1,6 @@
 // ===============================
 // OpenPlayground - Main JavaScript
+// Clean, Modular Implementation
 // ===============================
 
 import { ProjectVisibilityEngine } from "./core/projectVisibilityEngine.js";
@@ -60,19 +61,27 @@ function updateThemeIcon(theme, iconElement) {
 
 // Fetch and Initialize Projects
 async function fetchProjects() {
+    const elements = getElements();
+
     try {
+        const response = await fetch('./projects.json');
+        if (!response.ok) throw new Error('Failed to fetch projects');
 
-        const res = await fetch("./projects.json");
-        allProjectsData = await res.json();
+        state.allProjects = await response.json();
 
-        const response = await fetch("./projects.json");
-        const data = await response.json();
-        allProjectsData = data;
+        // Remove duplicates by title
+        const seen = new Set();
+        state.allProjects = state.allProjects.filter(project => {
+            if (!project.title || !project.link) return false;
+            const key = project.title.toLowerCase();
+            if (seen.has(key)) return false;
+            seen.add(key);
+            return true;
+        });
 
         // Update project count in hero
-        const projectCount = document.getElementById("project-count");
-        if (projectCount) {
-            projectCount.textContent = `${data.length}+`;
+        if (elements.projectCount) {
+            elements.projectCount.textContent = `${state.allProjects.length}+`;
         }
 
         // Initialize Visibility Engine
@@ -203,8 +212,8 @@ function renderProjects() {
         case "az":
             filteredProjects.sort((a, b) => a.title.localeCompare(b.title));
             break;
-        case "za":
-            filteredProjects.sort((a, b) => b.title.localeCompare(a.title));
+        case 'za':
+            projects.sort((a, b) => (b.title || '').localeCompare(a.title || ''));
             break;
         case "newest":
             // Assuming data is static, we just reverse for now
@@ -255,21 +264,71 @@ function renderProjects() {
         const bookmarkClass = isBookmarked ? 'bookmarked' : '';
         const bookmarkIcon = isBookmarked ? 'ri-bookmark-fill' : 'ri-bookmark-line';
 
-        card.innerHTML = `
-            <button class="bookmark-btn ${bookmarkClass}" data-project-title="${escapeHtml(project.title)}" aria-label="${isBookmarked ? 'Remove bookmark' : 'Add bookmark'}">
-                <i class="${bookmarkIcon}"></i>
-            </button>
-            <div ${coverAttr}><i class="${project.icon}"></i></div>
+    // Update view more button
+    updateViewMoreButton(remaining);
+}
 
-            <div class="card-content">
-                <div class="card-header-flex">
-                    <h3 class="card-heading">${project.title}</h3>
-                    <span class="category-tag">${capitalize(project.category)}</span>
+function renderCardView(container, projects) {
+    container.innerHTML = projects.map((project, index) => {
+        const isBookmarked = window.bookmarksManager?.isBookmarked?.(project.title) || false;
+        const techHtml = project.tech?.map(t => `<span>${escapeHtml(t)}</span>`).join('') || '';
+        const coverStyle = project.coverStyle || 'background: var(--gradient-primary); color: white;';
+
+        return `
+            <a href="${escapeHtml(project.link)}" class="card" data-category="${escapeHtml(project.category || 'utility')}">
+                <button class="bookmark-btn ${isBookmarked ? 'bookmarked' : ''}" 
+                        data-project-title="${escapeHtml(project.title)}" 
+                        aria-label="${isBookmarked ? 'Remove bookmark' : 'Add bookmark'}"
+                        onclick="event.preventDefault(); event.stopPropagation(); window.toggleProjectBookmark(this, '${escapeHtml(project.title)}', '${escapeHtml(project.link)}', '${escapeHtml(project.category || 'utility')}', '${escapeHtml(project.description || '')}');">
+                    <i class="${isBookmarked ? 'ri-bookmark-fill' : 'ri-bookmark-line'}"></i>
+                </button>
+                <div class="card-cover" style="${coverStyle}">
+                    <i class="${project.icon || 'ri-code-s-slash-line'}"></i>
                 </div>
-                <p class="card-description">${project.description}</p>
-                <div class="card-tech">${project.tech.map(t=>`<span>${t}</span>`).join('')}</div>
+                <div class="card-content">
+                    <div class="card-header-flex">
+                        <h3 class="card-heading">${escapeHtml(project.title)}</h3>
+                        <span class="category-tag">${capitalize(project.category || 'utility')}</span>
+                    </div>
+                    <p class="card-description">${escapeHtml(project.description || '')}</p>
+                    <div class="card-tech">${techHtml}</div>
+                </div>
+            </a>
+        `;
+    }).join('');
+}
+
+function renderListView(container, projects) {
+    container.innerHTML = projects.map((project, index) => {
+        const isBookmarked = window.bookmarksManager?.isBookmarked?.(project.title) || false;
+        const coverStyle = project.coverStyle || 'background: var(--gradient-primary); color: white;';
+
+        return `
+            <div class="list-card">
+                <div class="list-card-icon" style="${coverStyle}">
+                    <i class="${project.icon || 'ri-code-s-slash-line'}"></i>
+                </div>
+                <div class="list-card-content">
+                    <h4 class="list-card-title">${escapeHtml(project.title)}</h4>
+                    <p class="list-card-description">${escapeHtml(project.description || '')}</p>
+                </div>
+                <div class="list-card-meta">
+                    <span class="list-card-category">${capitalize(project.category || 'utility')}</span>
+                    <div class="list-card-actions">
+                        <button class="list-card-btn ${isBookmarked ? 'bookmarked' : ''}" 
+                                onclick="window.toggleProjectBookmark(this, '${escapeHtml(project.title)}', '${escapeHtml(project.link)}', '${escapeHtml(project.category || 'utility')}', '${escapeHtml(project.description || '')}');" 
+                                title="Bookmark">
+                            <i class="${isBookmarked ? 'ri-bookmark-fill' : 'ri-bookmark-line'}"></i>
+                        </button>
+                        <a href="${escapeHtml(project.link)}" class="list-card-btn" title="Open Project">
+                            <i class="ri-external-link-line"></i>
+                        </a>
+                    </div>
+                </div>
             </div>
         `;
+    }).join('');
+}
 
         // GitHub Button
         if (project.github) {
@@ -298,10 +357,23 @@ function renderProjects() {
         card.style.opacity = "0";
         card.style.transform = "translateY(20px)";
 
-        projectsContainer.appendChild(card);
+function handleSort(e) {
+    state.currentSort = e.target.value;
+    state.itemsShown = CONFIG.ITEMS_PER_PAGE;
+    filterAndRenderProjects();
+}
+
+function handleFilter(category) {
+    state.currentCategory = category;
+    state.itemsShown = CONFIG.ITEMS_PER_PAGE;
+
+    // Update active state
+    const elements = getElements();
+    elements.filterBtns.forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.filter === category);
     });
 
-    renderPagination(totalPages);
+    filterAndRenderProjects();
 }
 
 // --- Helper Functions ---
@@ -433,6 +505,11 @@ function renderPagination(totalPages){
     );
 }
 
+    // Search
+    if (elements.searchInput) {
+        elements.searchInput.addEventListener('input', debounce(handleSearch, 200));
+        console.log('✅ Search listener attached');
+    }
 
 function capitalize(str){ return str.charAt(0).toUpperCase() + str.slice(1); }
 
@@ -496,7 +573,6 @@ async function fetchContributors() {
     } catch (error) {
         console.error("Error fetching contributors:", error);
     }
-}
 
 // ===============================
 // Animations & Nav Logic
@@ -553,7 +629,7 @@ document.addEventListener('componentLoaded', () => {
     if (loadedCount === expectedComponents) {
         initializeApp();
     }
-});
+}
 
 // Fallback: If event system fails, try to init anyway after a delay
 setTimeout(() => {
@@ -561,7 +637,6 @@ setTimeout(() => {
         console.log("Fallback init triggered");
         initializeApp();
     }
-}, 3000);
 
 function initializeApp() {
     console.log("🚀 Initializing App Logic...");

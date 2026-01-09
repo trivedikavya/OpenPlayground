@@ -6,7 +6,7 @@
     </div>
 
     <div class="controls-wrapper">
-        <div class="search-box">
+        <div class="search-box" id="search-box">
             <i class="ri-search-line" aria-hidden="true"></i>
             <input type="text" id="project-search" placeholder="Search projects..." aria-label="Search projects">
             <button id="search-clear" class="search-clear" aria-label="Clear search">
@@ -22,26 +22,38 @@
                 <option value="newest">Newest</option>
             </select>
         </div>
+        <!-- View Toggle Buttons -->
+        <div class="view-toggle">
+            <button id="card-view-btn" class="view-btn active" aria-label="Card view" title="Card View">
+                <i class="ri-grid-fill"></i>
+            </button>
+            <button id="list-view-btn" class="view-btn" aria-label="List view" title="List View">
+                <i class="ri-list-unordered"></i>
+            </button>
+        </div>
     </div>
 
     <div class="category-filter">
         <button class="filter-btn active" data-filter="all">
             <i class="ri-apps-line" aria-hidden="true"></i> All
         </button>
-        <button class="filter-btn" data-filter="action">
-            <i class="ri-gamepad-line" aria-hidden="true"></i> Action
-        </button>
-        <button class="filter-btn" data-filter="strategy">
-            <i class="ri-chess-line" aria-hidden="true"></i> Strategy
-        </button>
-        <button class="filter-btn" data-filter="puzzle">
-            <i class="ri-puzzle-line" aria-hidden="true"></i> Puzzle
-        </button>
         <button class="filter-btn" data-filter="utility">
             <i class="ri-tools-line" aria-hidden="true"></i> Utility
         </button>
         <button class="filter-btn" data-filter="game">
             <i class="ri-game-line" aria-hidden="true"></i> Game
+        </button>
+        <button class="filter-btn" data-filter="puzzle">
+            <i class="ri-puzzle-line" aria-hidden="true"></i> Puzzle
+        </button>
+        <button class="filter-btn" data-filter="fun">
+            <i class="ri-emotion-happy-line" aria-hidden="true"></i> Fun
+        </button>
+        <button class="filter-btn" data-filter="productivity">
+            <i class="ri-calendar-check-line" aria-hidden="true"></i> Productivity
+        </button>
+        <button class="filter-btn" data-filter="experimental">
+            <i class="ri-flask-line" aria-hidden="true"></i> Experimental
         </button>
         <button class="filter-btn" data-filter="fun">
             <i class="ri-emotion-laugh-line" aria-hidden="true"></i> Fun
